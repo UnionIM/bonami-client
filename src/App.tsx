@@ -1,7 +1,9 @@
-import React from 'react';
-import {ThemeProvider} from "@mui/material";
-import {createTheme} from "@mui/material";
+import React from "react";
+import { ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material";
 import { createGlobalStyle } from "styled-components";
+import Header from "./Components/Header";
+import AppRouter from "./Router/AppRouter";
 
 const Global = createGlobalStyle`
   * {
@@ -41,12 +43,41 @@ function App() {
       fontWeightBold: 700,
     },
     palette: {
-      primary: {main: '#573618'},
+      primary: { main: "#573618" },
+    },
+    components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            ".MuiInputBase-input": {
+              padding: "0",
+            },
+            ".MuiInputBase-root": {
+              padding: "0",
+            },
+            ".MuiOutlinedInput-input": {
+              padding: "11px 17px",
+            },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            borderRadius: "0",
+            ".MuiList-root": {
+              padding: "0",
+            },
+          },
+        },
+      },
     },
   });
   return (
     <ThemeProvider theme={theme}>
-      <Global/>
+      <Global />
+      <Header />
+      <AppRouter />
     </ThemeProvider>
   );
 }
