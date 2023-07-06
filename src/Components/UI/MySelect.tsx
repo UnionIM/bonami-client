@@ -1,12 +1,13 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { MenuItem } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { ISelect } from "../../Models/Bonami";
 
 interface IMySelect {
   selectState: string;
   setSelectState: React.Dispatch<React.SetStateAction<string>>;
-  selectList: { value: string; display: React.ReactNode }[];
+  selectList: ISelect[];
 }
 
 const MySelect: FC<IMySelect> = ({
@@ -14,32 +15,20 @@ const MySelect: FC<IMySelect> = ({
   selectState,
   setSelectState,
 }) => {
-  const [selectValuesState, setSelectValuesState] = useState<
-    { value: string; display: React.ReactNode }[]
-  >(selectList.filter((value) => selectState !== value.value));
-
   const handler = (e: SelectChangeEvent) => {
     setSelectState(e.target.value as string);
   };
 
-  useEffect(() => {
-    if (selectState) {
-      setSelectValuesState(
-        selectList.filter((value) => selectState !== value.value)
-      );
-    }
-  }, [selectState]);
+  const renderValue = (selected: string) => {
+    return selectList.find((el) => el.value === selected)?.display || selected;
+  };
 
   return (
     <Select
       value={selectState}
       onChange={handler}
       defaultValue={selectList[0].value}
-      renderValue={(selected) => {
-        return (
-          selectList.find((el) => el.value === selected)?.display || selected
-        );
-      }}
+      renderValue={renderValue}
       IconComponent={ArrowDropDownIcon}
       sx={{
         color: "white",
@@ -60,9 +49,14 @@ const MySelect: FC<IMySelect> = ({
         },
       }}
     >
-      <MenuItem value={selectState} sx={{ display: "none" }} />
-      {selectValuesState.map((selectListElement) => (
-        <MenuItem key={selectListElement.value} value={selectListElement.value}>
+      {selectList.map((selectListElement) => (
+        <MenuItem
+          key={selectListElement.value}
+          value={selectListElement.value}
+          sx={{
+            display: selectState === selectListElement.value ? "none" : "block",
+          }}
+        >
           {selectListElement.display}
         </MenuItem>
       ))}
