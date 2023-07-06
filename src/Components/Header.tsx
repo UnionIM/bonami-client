@@ -1,13 +1,19 @@
 import React, { ChangeEvent, useState } from "react";
 import { AppBar, Box, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import Logo from "../Images/Vector/Logo.svg";
-import Searchbar from "./UI/Searchbar";
-import MySelect from "./UI/MySelect";
-import uaFlag from "../Images/Vector/Ua.svg";
-import ukFlag from "../Images/Vector/Uk.svg";
-import LanguageSelectElement from "./UI/LanguageSelectElement";
-import ShoppingCart from "../Images/Vector/ShoppingCart.svg";
+import { Logo, uaFlag, ukFlag, ShoppingCart } from "../Images/Vector";
+import { Searchbar, MySelect, LanguageSelectElement } from "./UI";
+
+const languageSelect = [
+  {
+    value: "ua",
+    display: <LanguageSelectElement img={uaFlag} text={"Ua"} />,
+  },
+  {
+    value: "en",
+    display: <LanguageSelectElement img={ukFlag} text={"En"} />,
+  },
+];
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -16,17 +22,6 @@ const Header = () => {
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
-
-  const languageSelect = [
-    {
-      value: "ua",
-      display: <LanguageSelectElement img={uaFlag} text={"Ua"} />,
-    },
-    {
-      value: "en",
-      display: <LanguageSelectElement img={ukFlag} text={"En"} />,
-    },
-  ];
 
   return (
     <Box maxHeight={"64px"}>

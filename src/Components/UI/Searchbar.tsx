@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC } from "react";
 import { InputAdornment, styled, TextField } from "@mui/material";
-import magnifier from "../../Images/Vector/magnifier.svg";
+import { magnifier } from "../../Images/Vector";
 
 interface ISearchbar {
   maxWidth: number;
