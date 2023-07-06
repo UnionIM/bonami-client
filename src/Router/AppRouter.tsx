@@ -6,11 +6,7 @@ const AppRouter = () => {
   return (
     <Routes>
       {publicRoutes.map(({ path, component }) => (
-        <Route
-          key={path}
-          path={path}
-          element={React.createElement(component)}
-        />
+        <Route key={path} path={path} Component={component} />
       ))}
     </Routes>
   );
