@@ -23,6 +23,18 @@ const theme = createTheme({
           ".MuiOutlinedInput-input": {
             padding: "11px 17px",
           },
+          "#outlined-adornment-password": {
+            padding: "11px 17px",
+          },
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          ".MuiOutlinedInput-input": {
+            padding: "11px 17px",
+          },
         },
       },
     },
