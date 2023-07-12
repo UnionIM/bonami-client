@@ -3,3 +3,4 @@ export { default as magnifier } from "./magnifier.svg";
 export { default as ShoppingCart } from "./ShoppingCart.svg";
 export { default as uaFlag } from "./Ua.svg";
 export { default as ukFlag } from "./Uk.svg";
+export { default as googleLogo } from "./Google_Logo.svg";
