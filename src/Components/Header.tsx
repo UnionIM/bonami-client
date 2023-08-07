@@ -1,8 +1,18 @@
 import React, { ChangeEvent, useState } from "react";
-import { AppBar, Box, Grid, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { Logo, uaFlag, ukFlag, ShoppingCart } from "../Images/Vector";
 import { Searchbar, MySelect, LanguageSelectElement } from "./UI";
+import { useSelector } from "react-redux";
+import { RootState } from "../Store/store";
+import BonamiController from "../Server/Controller/BonamiController";
 
 const languageSelect = [
   {
@@ -18,9 +28,24 @@ const languageSelect = [
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [select, setSelect] = useState<string>("ua");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const user = useSelector((state: RootState) => state.user);
 
   const searchHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
+  };
+
+  const logOutHandler = () => {
+    setIsLoading(true);
+    BonamiController.logOut()
+      .then((res) => {
+        if (res.message === "success") {
+          setIsLoading(false);
+          window.location.replace(`${process.env.REACT_APP_CLIENT_URL}`);
+        }
+      })
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -59,12 +84,27 @@ const Header = () => {
             <Box>
               <img src={ShoppingCart} alt="Cart" />
             </Box>
-
-            {
+            {user ? (
+              <Grid
+                container
+                gap={"5px"}
+                alignItems={"center"}
+                sx={{ width: "unset" }}
+              >
+                <Typography>{user.email}</Typography>{" "}
+                {isLoading ? (
+                  <CircularProgress color={"inherit"} />
+                ) : (
+                  <Button onClick={logOutHandler} color={"inherit"}>
+                    Log out
+                  </Button>
+                )}
+              </Grid>
+            ) : (
               <Link to={"/login"}>
                 <Typography>Log in</Typography>
               </Link>
-            }
+            )}
           </Grid>
         </Grid>
       </AppBar>
