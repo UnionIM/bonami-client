@@ -1,4 +1,4 @@
-import { Products, Home, Login } from "../Pages";
+import { Products, Home, Login, User } from "../Pages";
 
 export const publicRoutes = [
   { path: "/", component: Home },
@@ -6,4 +6,8 @@ export const publicRoutes = [
   { path: "/login", component: Login },
 ];
 
-export const privateRoutes = [{}];
+export const privateRoutes = [
+  { path: "/", component: Home },
+  { path: "/products", component: Products },
+  { path: "/user", component: User },
+];
